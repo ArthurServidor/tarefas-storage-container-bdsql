@@ -1,10 +1,23 @@
-FROM mysql:8.0
 
-ENV MYSQL_ROOT_PASSWORD=root
-ENV MYSQL_DATABASE=prova_ronan
-ENV MYSQL_USER=arthur
-ENV MYSQL_PASSWORD=password
+FROM node:20-alpine
 
-EXPOSE 8080
 
-CMD ["mysqld"]
+WORKDIR /app
+
+
+COPY package*.json ./
+
+
+RUN npm install
+
+
+COPY . .
+
+
+RUN npm run build
+
+
+EXPOSE 3000
+
+
+CMD ["npm", "start"]
